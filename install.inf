@@ -1,0 +1,30 @@
+[info]
+title=Brackets Hilite
+desc=Highlights pair brackets for caret position, when caret moves
+type=py-plugin
+subdir=syn_brackets_hilite
+
+[ini1]
+section=Events
+id=BracketsHilite
+params=on_caret_move
+
+[ini2]
+section=Commands
+id=Brackets Hilite\Go to pair bracket
+params=jump
+
+[ini3]
+section=Commands
+id=Brackets Hilite\Select to pair bracket
+params=select
+
+[ini4]
+section=Commands
+id=Brackets Hilite\Select to pair bracket, inside
+params=select_in
+
+[ini10]
+section=Commands
+id=Brackets Hilite\Config
+params=config
