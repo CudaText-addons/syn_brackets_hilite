@@ -1,0 +1,7 @@
+
+2016.09.09
++ add: option max_file_size (ini file)
++ add: option allow_with_selection
+
+2016.09.08
+ported from Cudatext
