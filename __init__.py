@@ -52,8 +52,6 @@ class Command:
     def config(self):
         if os.path.isfile(fn_config):
             file_open(fn_config)
-        else:
-            msg_box('Cannot find config: '+fn_config, MB_OK)
 
 
     def on_caret_move(self, ed_self):
