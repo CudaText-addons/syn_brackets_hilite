@@ -1,4 +1,8 @@
 
+2016.10.10
+- works with none-lexer now
+* def font color: set to red
+
 2016.09.09
 + add: option max_file_size (ini file)
 + add: option allow_with_selection
