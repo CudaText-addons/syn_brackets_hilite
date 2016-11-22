@@ -8,8 +8,7 @@ Gives items in Plugins menu:
 - edit config
 
 Config file:
-- Brackets, which are considered, per lexer, e.g. "()[]{}" 
-- Color of hiliting (use Color Picker plugin to edit HTML colors here)
+- Brackets, which are searched, per lexer, e.g. "()[]{}" 
 
 Author: Alexey T.
 License: MIT

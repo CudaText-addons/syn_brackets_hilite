@@ -13,7 +13,7 @@ if not os.path.isfile(fn_config) and os.path.isfile(fn_config_def):
 
 def log(s):
     pass
-    #print('BracketHi: '+s)
+    #print('BracketHilite: '+s)
 
 prev_lexer = None
 prev_chars = ''
@@ -44,15 +44,11 @@ class Command:
     prev1=None
     prev2=None
     allow_with_sel=True
-    max_file_size=2
-    color_font=0
-    color_bg=0x80C080
+    max_file_size=1
 
     def __init__(self):
-        self.color_font = html_color_to_int(ini_read(fn_config, 'color', 'fore', '#000000'))
-        self.color_bg = html_color_to_int(ini_read(fn_config, 'color', 'back', '#80c080'))
         self.allow_with_sel = ini_read(fn_config, 'op', 'allow_with_selection', '1')=='1'
-        self.max_file_size = int(ini_read(fn_config, 'op', 'max_file_size_mb', '2'))
+        self.max_file_size = int(ini_read(fn_config, 'op', 'max_file_size_mb', '1'))
 
 
     def config(self):
@@ -74,18 +70,8 @@ class Command:
 
         #clear prev attrs
         if self.prev1 is not None:
-            self.entered = True
-
-            if len(ed.get_attr())<=2:
-                ed.set_attr(ATTRIB_CLEAR_ALL, 0)
-            else:
-                #this clearing prev attrs is to work with SpellChecker attr's
-                ed.set_sel(self.prev1, 1, True)
-                ed.set_attr(ATTRIB_CLEAR_SELECTION, 0)
-                ed.set_sel(self.prev2, 1, True)
-                ed.set_attr(ATTRIB_CLEAR_SELECTION, 0)
-                ed.set_sel(npos, nlen, True)
-
+            self.entered = True      
+            ed.add_mark(-1, 0) #clear marks
             self.prev1 = None
             self.prev2 = None
             self.entered = False
@@ -103,13 +89,8 @@ class Command:
         self.entered = True
         self.prev1 = npos
         self.prev2 = npos2
-        ed.set_sel(npos, 1, True)
-        ed.set_attr(ATTRIB_COLOR_BG, self.color_bg)
-        ed.set_attr(ATTRIB_COLOR_FONT, self.color_font)
-        ed.set_sel(npos2, 1, True)
-        ed.set_attr(ATTRIB_COLOR_BG, self.color_bg)
-        ed.set_attr(ATTRIB_COLOR_FONT, self.color_font)
-        ed.set_sel(npos, nlen, True)
+        ed.add_mark(npos, 1)
+        ed.add_mark(npos2, 1)
         self.entered = False
 
 

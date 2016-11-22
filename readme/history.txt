@@ -1,4 +1,8 @@
 
+2016.11.22
+* brackets hilited with search-marks, not using custom color 
+- fix: backward selection is reset by plugin
+
 2016.10.10
 - works with none-lexer now
 * def font color: set to red
