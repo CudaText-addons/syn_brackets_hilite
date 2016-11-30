@@ -1,4 +1,7 @@
 
+2016.11.30
++ used new API for search-marks
+
 2016.11.22
 * brackets hilited with search-marks, not using custom color 
 - fix: backward selection is reset by plugin

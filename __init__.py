@@ -11,6 +11,11 @@ fn_config_def = os.path.join(os.path.dirname(__file__), NAME_INI)
 if not os.path.isfile(fn_config) and os.path.isfile(fn_config_def):
     shutil.copyfile(fn_config_def, fn_config)
 
+if app_api_version()<'1.0.158':
+    msg_box(MSG_ERROR, 'Brackets Hilite plugin needs newer app version')
+MARKTAG = 104 #uniq for all search-marks plugins
+
+
 def log(s):
     pass
     #print('BracketHilite: '+s)
@@ -41,8 +46,6 @@ def get_chars():
 
 class Command:
     entered=False
-    prev1=None
-    prev2=None
     allow_with_sel=True
     max_file_size=1
 
@@ -68,13 +71,8 @@ class Command:
         if not self.allow_with_sel:
             if nlen>0: return log('not allowed with sel')
 
-        #clear prev attrs
-        if self.prev1 is not None:
-            self.entered = True      
-            ed.add_mark(-1, 0) #clear marks
-            self.prev1 = None
-            self.prev2 = None
-            self.entered = False
+        #clear prev marks
+        ed.marks(MARKS_DELETE_BY_TAG, 0, 0, MARKTAG)
 
         chars = get_chars()
         if not chars: return log('no bracket-chars set')
@@ -85,13 +83,8 @@ class Command:
         x1, y1 = res
         npos2 = ed.xy_pos(x1, y1)
 
-        #this calls on_caret_move again
-        self.entered = True
-        self.prev1 = npos
-        self.prev2 = npos2
-        ed.add_mark(npos, 1)
-        ed.add_mark(npos2, 1)
-        self.entered = False
+        ed.marks(MARKS_ADD, npos, 1, MARKTAG)
+        ed.marks(MARKS_ADD, npos2, 1, MARKTAG)
 
 
     def jump(self):
