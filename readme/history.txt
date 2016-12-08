@@ -1,4 +1,8 @@
 
+2016.12.08
+* chg opt "max_file_size" (Mb) to "max_size" (chars)
++ save ini-file on "Config"
+
 2016.11.30
 + used new API for search-marks
 

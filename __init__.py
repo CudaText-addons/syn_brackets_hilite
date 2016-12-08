@@ -45,26 +45,27 @@ def get_chars():
 
 
 class Command:
-    entered=False
-    allow_with_sel=True
-    max_file_size=1
+    entered = False
+    allow_with_sel = True
+    max_size = 400*1000
 
     def __init__(self):
         self.allow_with_sel = ini_read(fn_config, 'op', 'allow_with_selection', '1')=='1'
-        self.max_file_size = int(ini_read(fn_config, 'op', 'max_file_size_mb', '1'))
+        self.max_size = int(ini_read(fn_config, 'op', 'max_size', str(self.max_size)))
 
 
     def config(self):
-        if os.path.isfile(fn_config):
-            file_open(fn_config)
+        ini_write(fn_config, 'op', 'allow_with_selection', '1' if self.allow_with_sel else '0')
+        ini_write(fn_config, 'op', 'max_size', str(self.max_size))
+        file_open(fn_config)
 
 
     def on_caret_move(self, ed_self):
         if self.entered: return log('already in on_caret_move')
-
-        num = ed.get_text_len() // (1024*1024)
-        if num>self.max_file_size:
-            return log('too big text: %d mb' % num)
+                                       
+        num = ed.get_text_len()
+        if num > self.max_size:
+            return log('too big text: %d Kb' % (num//1024))
 
         x, y = ed.get_caret_xy()
         npos, nlen = ed.get_sel()
